@@ -7,6 +7,8 @@ import {router as todoRouter} from './modules/todos/routes.js';
 const app = express();
 const serverPort = 3000;
 
+app.use(express.json()); // for parsing application/json
+
 app.get('/test', (req, res) => {
   res.json({
     message: 'Express js app is running'
