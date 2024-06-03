@@ -16,7 +16,19 @@ async function getTodoById(id) {
   return result.rows;
 }
 
+async function createTodo(title, description, isCompleted) {
+  const sql = `
+    insert into public.todos
+    (title, description, is_completed)
+    values
+    ($1, $2, $3);
+  `;
+  const result = await query(sql, [title, description, isCompleted]);
+  return result;
+}
+
 export {
   getTodos,
-  getTodoById
+  getTodoById,
+  createTodo
 };
