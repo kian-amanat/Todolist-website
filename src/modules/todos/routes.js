@@ -1,5 +1,5 @@
 import express from 'express';
-import { getTodos, getTodoById } from '../../model/todos/index.js';
+import { getTodos, getTodoById, createTodo } from '../../model/todos/index.js';
 
 const router = express.Router();
 
@@ -27,6 +27,21 @@ router.get('/api/todo/:id', async (req, res) => {
     } else {
       res.json(todo[0]);
     }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: error.message
+    });
+  }
+});
+
+router.post('/api/todo', async (req, res) => {
+  try {
+    const {title, description, isCompleted} = req.body;
+    await createTodo(title, description, isCompleted);
+    res.status(201).json({
+      message: `The todo added to the database.`
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({
