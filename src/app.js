@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import express from 'express';
+import cors from 'cors';
 
 // Backend modules
 import {router as todoRouter} from './modules/todos/routes.js';
@@ -7,6 +8,7 @@ import {router as todoRouter} from './modules/todos/routes.js';
 const app = express();
 const serverPort = 3000;
 
+app.use(cors());
 app.use(express.json()); // for parsing application/json
 
 app.get('/test', (req, res) => {
