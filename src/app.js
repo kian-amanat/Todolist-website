@@ -22,7 +22,7 @@ app.get('/test', (req, res) => {
 });
 
 // attach routers to express app
-app.use(todoRouter);
+app.use('/api/todo', todoRouter);
 
 app.use(notFoundErrorHandlerMiddleware);
 

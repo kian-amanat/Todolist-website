@@ -4,7 +4,7 @@ import { getTodos, getTodoById, createTodo } from '../../model/todos/index.js';
 const router = express.Router();
 
 
-router.get('/api/todo', async (req, res) => {
+router.get('', async (req, res) => {
   try {
     const todoList = await getTodos();
     res.json(todoList);
@@ -16,7 +16,7 @@ router.get('/api/todo', async (req, res) => {
   }
 });
 
-router.get('/api/todo/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const todoId = req.params.id;
     const todo = await getTodoById(todoId);
@@ -35,7 +35,7 @@ router.get('/api/todo/:id', async (req, res) => {
   }
 });
 
-router.post('/api/todo', async (req, res) => {
+router.post('', async (req, res) => {
   try {
     const {title, description, isCompleted} = req.body;
     await createTodo(title, description, isCompleted);
