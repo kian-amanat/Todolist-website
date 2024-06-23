@@ -8,12 +8,6 @@ const POSTGRES_CREDENTIALS = {
   connectionString: process.env['PG_CONNECTION_STRING']
 };
 
-const EXPRESS_APP = {
-  port: process.env['port'],
-  
-}
-
 export {
   POSTGRES_CREDENTIALS,
-  EXPRESS_APP
 };

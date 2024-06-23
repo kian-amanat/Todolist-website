@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
-import { EXPRESS_APP } from "./core/secrets/index.js";
+import { EXPRESS_APP } from "./core/config/index.js";
 import { apiLoggerMiddleware, notFoundErrorHandlerMiddleware } from './core/middleware/express-middlewares.js';
 
 // Backend modules
