@@ -8,7 +8,7 @@ import { apiLoggerMiddleware, notFoundErrorHandlerMiddleware } from './core/midd
 import {router as todoRouter} from './modules/todos/routes.js';
 
 const app = express();
-const serverPort = EXPRESS_APP.port;
+const serverPort = EXPRESS_APP.port || 3000;
 
 app.use(cors());
 app.use(express.json()); // for parsing application/json
