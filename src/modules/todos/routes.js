@@ -1,5 +1,6 @@
 import express from 'express';
-import { getTodos, getTodoById, createTodo } from '../../model/todos/index.js';
+import { getTodoById } from './controller.js';
+import { getTodos, createTodo } from '../../model/todos/index.js';
 
 const router = express.Router();
 
@@ -16,24 +17,7 @@ router.get('', async (req, res) => {
   }
 });
 
-router.get('/:id', async (req, res) => {
-  try {
-    const todoId = req.params.id;
-    const todo = await getTodoById(todoId);
-    if (!todo || todo.length <= 0) {
-      res.status(404).json({
-        message: `The todo with id=${todoId} is not exists`
-      });
-    } else {
-      res.json(todo[0]);
-    }
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      message: error.message
-    });
-  }
-});
+router.get('/:id', getTodoById);
 
 router.post('', async (req, res) => {
   try {
