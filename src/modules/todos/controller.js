@@ -4,7 +4,7 @@ import {
 
 const getTodoByIdController = async (req, res, next) => {
   try {
-    const todoId = req.params.id;
+    const todoId = req.validatedParams.id;
     const todo = await getTodoByIdService(todoId);
     if (todo === null) {
       res.status(404).json({
