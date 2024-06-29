@@ -1,6 +1,6 @@
 import {
   getTodoByIdService
-} from './service.js';
+} from '../../services/todos/service.js';
 
 const getTodoById = async (req, res, next) => {
   try {
