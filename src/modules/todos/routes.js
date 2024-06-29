@@ -1,5 +1,5 @@
 import express from 'express';
-import { getTodoById } from './controller.js';
+import { getTodoByIdController } from './controller.js';
 import { getTodos, createTodo } from '../../model/todos/index.js';
 
 const router = express.Router();
@@ -17,7 +17,7 @@ router.get('', async (req, res) => {
   }
 });
 
-router.get('/:id', getTodoById);
+router.get('/:id', getTodoByIdController);
 
 router.post('', async (req, res) => {
   try {

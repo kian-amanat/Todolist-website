@@ -2,7 +2,7 @@ import {
   getTodoByIdService
 } from '../../services/todos/service.js';
 
-const getTodoById = async (req, res, next) => {
+const getTodoByIdController = async (req, res, next) => {
   try {
     const todoId = req.params.id;
     const todo = await getTodoByIdService(todoId);
@@ -22,5 +22,5 @@ const getTodoById = async (req, res, next) => {
 }
 
 export {
-  getTodoById
+  getTodoByIdController
 }
