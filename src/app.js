@@ -1,31 +1,52 @@
-import 'dotenv/config';
-import express from 'express';
-import cors from 'cors';
-import { EXPRESS_APP } from "./core/config/index.js";
-import { apiLoggerMiddleware, notFoundErrorHandlerMiddleware } from './core/middleware/express-middlewares.js';
-
-// Backend modules
-import {router as todoRouter} from './modules/todos/routes.js';
+import "dotenv/config";
+import {
+  sendError,
+  authorization,
+  getMethodPathIp,
+} from "./core/middleware/express-middlewares.js";
+import { validationMiddleWare } from "./modules/todos/validations.js";
+import express from "express";
+import { router as taskRouter } from "./modules/todos/routes.js";
+import { router as taskRouter2 } from "./modules/todos/routes.js";
+import { router as taskRouter3 } from "./modules/todos/routes.js";
+import { router as taskRouter4 } from "./modules/todos/routes.js";
+import { router as userRouter } from "./modules/user/routes.js";
+import { router as userRouter2 } from "./modules/user/routes.js";
+import { router as userRouter3 } from "./modules/user/routes.js";
+import { router as userRouter4 } from "./modules/user/routes.js";
+import cors from "cors";
+import { query } from "./core/database/database-handler.js";
 
 const app = express();
-const serverPort = EXPRESS_APP.port || 3000;
+const port = 3001;
 
-app.use(cors());
-app.use(express.json()); // for parsing application/json
-
-app.use(apiLoggerMiddleware);
-
-app.get('/test', (req, res) => {
-  res.json({
-    message: 'Express js app is running'
-  });
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  next();
 });
 
-// attach routers to express app
-app.use('/api/todo', todoRouter);
+app.use(express.json());
+// app.use(validationMiddleWare);
 
-app.use(notFoundErrorHandlerMiddleware);
+// app.use(getMethodPathIp);
 
-app.listen(serverPort, () => {
-  console.log(`server is running on port ${serverPort}`);
+// app.use(cors());
+
+// app.use(authorization);
+
+app.use("/get", taskRouter);
+app.use("/post", taskRouter2);
+app.use("/delet", taskRouter3);
+app.use("/update", taskRouter4);
+
+app.use("/get", userRouter);
+app.use("/update", userRouter2);
+app.use("/create", userRouter3);
+app.use("/api", userRouter4);
+// app.use(sendError); //send404errornot found
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
 });

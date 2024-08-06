@@ -1,26 +1,87 @@
 import {
-  getTodoByIdService
-} from '../../services/todos/service.js';
+  getTaskById,
+  createTask,
+  updateTaskById,
+  removeTaskById,
+} from "../../model/todos/index.js";
 
-const getTodoByIdController = async (req, res, next) => {
+const getTaskController = async (req, res) => {
   try {
-    const todoId = req.validatedParams.id;
-    const todo = await getTodoByIdService(todoId);
-    if (todo === null) {
-      res.status(404).json({
-        message: `The todo with id=${todoId} is not exists`
-      });
+    const taskId = req.params.id;
+    if (!taskId) {
+      console.log("you doesnt add your id");
     } else {
-      res.json(todo);
+      const getTask = await getTaskById(taskId);
+      res.json(getTask);
     }
   } catch (error) {
     console.log(error);
-    res.status(500).json({
-      message: error.message
-    });
   }
-}
+};
+
+const createTaskController = async (req, res) => {
+  try {
+    const { title, description, isCompleted = false } = req.body;
+    await createTask(title, description, isCompleted);
+    res.json({
+      message: " your task is added to the database",
+    });
+  } catch (error) {
+    res.json({
+      message: `your tasks doesnt add to database for that resaon => ${error}`,
+    });
+    console.log(error);
+  }
+};
+
+const updateTaskController = async (req, res) => {
+  try {
+    const upId = req.params.id;
+    const {
+      title,
+      description = "Default description",
+      isCompleted,
+    } = req.body;
+    if (!upId) {
+      console.log("you doesnt add your id");
+    } else {
+      const updateTask = await updateTaskById(
+        upId,
+        title,
+        description,
+        isCompleted
+      );
+      res.json({
+        message: "your task is updated",
+      });
+    }
+  } catch (error) {
+    res.json({
+      message: `your tasks doesnt update for that resaon => ${error}`,
+    });
+    console.log(error);
+  }
+};
+
+const removeTaskController = async (req, res) => {
+  try {
+    const remId = req.params.id;
+    if (!remId) {
+      console.log("you doesnt add your id");
+    } else {
+      await removeTaskById(remId);
+      res.json({
+        message: `your task with id : ${remId} is deleted`,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export {
-  getTodoByIdController
-}
+  getTaskController,
+  createTaskController,
+  removeTaskController,
+  updateTaskController,
+};

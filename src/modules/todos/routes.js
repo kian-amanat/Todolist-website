@@ -1,41 +1,16 @@
-import express from 'express';
-import { getTodoByIdController } from './controller.js';
-import { getTodoByIdValidator } from './validations.js';
-import { getTodos, createTodo } from '../../model/todos/index.js';
+import express from "express";
+import {
+  getTaskController,
+  createTaskController,
+  removeTaskController,
+  updateTaskController,
+} from "./controller.js";
 
 const router = express.Router();
 
+router.get("/task/:id", getTaskController);
+router.post("/task/add", createTaskController);
+router.delete("/task/:id", removeTaskController);
+router.put("/task/put/:id", updateTaskController);
 
-router.get('', async (req, res) => {
-  try {
-    const todoList = await getTodos();
-    res.json(todoList);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      message: error.message
-    });
-  }
-});
-
-router.get('/:id', getTodoByIdValidator, getTodoByIdController);
-
-router.post('', async (req, res) => {
-  try {
-    const {title, description, isCompleted} = req.body;
-    await createTodo(title, description, isCompleted);
-    res.status(201).json({
-      message: `The todo added to the database.`
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      message: error.message
-    });
-  }
-})
-
-
-export {
-  router
-};
+export { router };

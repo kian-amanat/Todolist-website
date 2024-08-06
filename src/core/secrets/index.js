@@ -5,9 +5,11 @@ const POSTGRES_CREDENTIALS = {
   // password: process.env['PGPASSWORD'],
   // port: +process.env['PGPORT'],
   // ssl: !!+process.env['PGSSL'],
-  connectionString: process.env['PG_CONNECTION_STRING']
+  connectionString: process.env["PGCONECTION"],
 };
 
-export {
-  POSTGRES_CREDENTIALS,
+const JWT_SECRET = {
+  signKey: process.env["SIGN_KEY"],
 };
+
+export { POSTGRES_CREDENTIALS, JWT_SECRET };
