@@ -1,11 +1,14 @@
 import "./input.css"
-import React, { useRef, useState , forwardRef } from 'react';
+import React, { useRef, useState ,useEffect, forwardRef } from 'react';
 import { getfetchData , createfetchData , removeFetchData  } from "./api.js";
 import { handleChange , updatefetchData } from './createData.js';
 
 
 
-const InputField = forwardRef((firstName, ref) => {
+function InputField ({setAccess}){
+
+
+    const [tasks, setTasks] = useState([]);
     const [inputs, setInputs] = useState([]);
     const [des, setDes] = useState([]);
     const [error, setError] = useState(false);
@@ -13,6 +16,26 @@ const InputField = forwardRef((firstName, ref) => {
     const descriptionVal = useRef(null);
     const isComplete = useRef(false);
     let count = 0 
+
+
+    useEffect(() => {
+        const fetchTasks = async (id) => {
+          try {
+            const response = await fetch(`http://localhost:3001/get/task/${id}`); // Adjust the URL as needed
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            setTasks(data); // Assuming data is an array of task objects
+          } catch (error) {
+            console.error('Error fetching tasks:', error);
+          }
+        };
+    
+        fetchTasks(1);
+      }, []);
+
+
 
     async function onChangeHandler() {
         await handleChange(inputVal, descriptionVal, setDes, setInputs, isComplete, setError);
@@ -71,9 +94,27 @@ const InputField = forwardRef((firstName, ref) => {
                         <input ref={isComplete} type="checkbox" onClick={completeTaskEvent} />
                     </div>
                 ))}
+
+
+{tasks.map((task, index) => (
+        <div key={index} className='list'>
+          <h1>{task.title}</h1> 
+          {task.description && ( 
+            <div className='list2'>
+              <p>{task.description}</p>
+            </div>
+          )}
+          <p>{task.isComplete ? 'True' : 'False'}</p> 
+
+          <button onClick={removeTaskEvent}>Remove</button>
+       <input ref={isComplete} type="checkbox" onClick={completeTaskEvent} />
+        </div>
+
+      ))}
+
             </div>
         </>
     );
-});
+};
 
 export { InputField };
