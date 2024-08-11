@@ -11,6 +11,10 @@ function SignInPage({setAccess}){
     let firstName = useRef(null)
     let lastName = useRef(null)
 
+    function changePage(){
+        setAccess(2)
+    }
+
 
     async  function SubmitSignIn(){
         let first = firstName.current.value;
@@ -44,7 +48,7 @@ function SignInPage({setAccess}){
           className="lastNameInput"
         />
         <button onClick={SubmitSignIn}>Submit</button>
-        
+        <button className="logIn" onClick={changePage}>Log In</button>
       </div>
 {fill ? <h1 className="para-error"> Fill The Blanks</h1> : "" }
 </>
