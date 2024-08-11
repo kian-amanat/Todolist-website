@@ -1,26 +1,26 @@
 import { query } from "../../core/database/database-handler.js";
 
 async function getTaskById(id) {
-  const sql = ` select * from task
+  const sql = ` select * from tasks
   where id = $1  `;
   const result = await query(sql, [id]);
-  return result;
+  return result.rows;
 }
 
-async function createTask(title, description, isCompleted) {
+async function createTask(title, description, isCompleted, ownerId) {
   const sql = `
-  insert into task
-  (title, description, is_completed) 
+  insert into tasks
+  (title, description, is_completed , owner_id ) 
   values 
-  ($1 , $2 , $3) ;
+  ($1 , $2 , $3 , $4) ;
   `;
-  const result = await query(sql, [title, description, isCompleted]);
+  const result = await query(sql, [title, description, isCompleted, ownerId]);
   return result;
 }
 
 async function updateTaskById(id, title, description, isCompleted) {
   const sql = `
-  update task
+  update tasks
   set title = $2, description = $3, is_completed = $4
   where id = $1
 `;
@@ -30,7 +30,7 @@ async function updateTaskById(id, title, description, isCompleted) {
 
 async function removeTaskById(id) {
   const sql = `
-    delete from task
+    delete from tasks
     where id = $1
   `;
   const result = await query(sql, [id]);

@@ -21,8 +21,8 @@ const getTaskController = async (req, res) => {
 
 const createTaskController = async (req, res) => {
   try {
-    const { title, description, isCompleted = false } = req.body;
-    await createTask(title, description, isCompleted);
+    const { title, description, isCompleted = false, ownerId = 37 } = req.body;
+    await createTask(title, description, isCompleted, ownerId);
     res.json({
       message: " your task is added to the database",
     });

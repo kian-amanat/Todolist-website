@@ -15,14 +15,14 @@ async function createUserService(userName, password) {
 
 async function loginUserService(username, password) {
   const user = await getUserByUserName(username);
-  console.log("user =>", user);
+
   if (!user) {
     throw new Error(`User not found.`);
   } else {
   }
 
   const validatedHash = await validateHash(password, user[0].password);
-  console.log("validatedHash", validatedHash);
+
   if (!validatedHash) {
     throw new Error(`Invalid password.`);
   }

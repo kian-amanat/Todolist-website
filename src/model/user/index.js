@@ -14,13 +14,13 @@ async function getUserByUserName(userName) {
   return result.rows;
 }
 
-async function updateUsersById(id, name, lastName) {
+async function updateUsersById(id, userName, password) {
   const sql = `
     update users
-    set name = $2, last_name = $3
+    set user_name = $2, password = $3
     where id = $1
   `;
-  const result = await query(sql, [id, name, lastName]);
+  const result = await query(sql, [id, userName, password]);
   return result;
 }
 

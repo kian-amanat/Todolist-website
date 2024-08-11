@@ -9,6 +9,7 @@ import {
   createUserService,
   loginUserService,
 } from "../../services/user/service.js";
+
 const getUserbyUserNameController = async (req, res) => {
   try {
     const { userName, password } = req.body;
@@ -66,6 +67,7 @@ const loginUserController = async (req, res, next) => {
   try {
     const userData = req.body;
     console.log(" c =>>>>", userData);
+    // let username = await getUserByUserName(userName);
     if (!userData || !userData.userName || !userData.password) {
       return res.status(401).json({
         message: "You must provide both username and password",
@@ -74,22 +76,27 @@ const loginUserController = async (req, res, next) => {
     const jwt = await loginUserService(userData.userName, userData.password);
 
     res.status(200).json({
-      jwt: jwt,
+      //   jwt: jwt,
+      message: "your login is succefully completed",
     });
   } catch (error) {
     res.json({
-      message: `your User doesnt add to database for that resaon => ${error}`,
+      message: `your cannot enter => ${error}`,
     });
   }
 };
 const updateUserController = async (req, res) => {
   try {
     let updateUserId = req.params.id;
-    let { name, lastName } = req.body;
+    let { userName, password } = req.body;
     if (!updateUserId && !req.body) {
       console.log("add your data");
     } else {
-      const updateUser = await updateUsersById(updateUserId, name, lastName);
+      const updateUser = await updateUsersById(
+        updateUserId,
+        userName,
+        password
+      );
       res.json({
         message: "user is updated",
       });
