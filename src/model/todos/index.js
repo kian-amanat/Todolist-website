@@ -2,7 +2,7 @@ import { query } from "../../core/database/database-handler.js";
 
 async function getTaskById(id) {
   const sql = ` select * from tasks
-  where id = $1  `;
+  where owner_id = $1  `;
   const result = await query(sql, [id]);
   return result.rows;
 }

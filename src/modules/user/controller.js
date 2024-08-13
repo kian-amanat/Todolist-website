@@ -53,13 +53,22 @@ const createUserController = async (req, res, next) => {
       userData.userName,
       userData.password
     );
+
+    if (createUserRes === false) {
+      return res.status(401).json({
+        message: "User is already in use.",
+      });
+    }
     res.status(201).json({
       message: "user created succesfully.",
     });
   } catch (error) {
-    res.json({
-      message: `your User doesnt add to database for that resaon => ${error}`,
+    console.error(error);
+    res.status(500).json({
+      message: "An error occurred while creating the user.",
     });
+
+    return false;
   }
 };
 
@@ -75,14 +84,21 @@ const loginUserController = async (req, res, next) => {
     }
     const jwt = await loginUserService(userData.userName, userData.password);
 
+    if (!jwt) {
+      return res.status(401).json({
+        message: "Incorrect username or password",
+      });
+    }
+
     res.status(200).json({
-      //   jwt: jwt,
+      jwt: jwt,
       message: "your login is succefully completed",
     });
   } catch (error) {
     res.json({
-      message: `your cannot enter => ${error}`,
+      message: ` Controller ==> your cannot enter => ${error}`,
     });
+    return false;
   }
 };
 const updateUserController = async (req, res) => {

@@ -34,11 +34,16 @@ export async function createdUserData(firstName, lastName) {
 
       const responseData = await response.json();
       console.log(responseData);
+      if (!responseData) {
+        console.log(false);
+      }
 
       firstName.current.value = "";
       lastName.current.value = "";
+      return true;
     } catch (error) {
       console.error("Error:", error);
+      return false;
     }
   }
 }
@@ -72,9 +77,12 @@ export async function logInUserData(firstName, lastName) {
       const responseData = await response.json();
       console.log(responseData);
 
+      if (!responseData) {
+        console.log(false);
+      }
+
       firstName.current.value = "";
       lastName.current.value = "";
-
       return true;
     } catch (error) {
       console.error("Error:", error);

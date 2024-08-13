@@ -3,13 +3,15 @@ import React, { useRef, useState } from 'react';
 import { logInUserData } from "./createUser.js";
 
 let changePage = false;
-function LogInPage({setAccess} , {}){
+function LogInPage({setAccess ,  className }){
     const [fill , setFill] = useState(false)
     const [tasks, setTasks] = useState([]);
     let firstName = useRef(null)
     let lastName = useRef(null)
 
-
+function changePageToCreate(){
+setAccess(4)
+}
 
 
     async  function SubmitSignIn(){
@@ -18,9 +20,9 @@ function LogInPage({setAccess} , {}){
         let last = lastName.current.value;
       if (first && last) {
         let changePage = false;
-        changePage = await logInUserData(firstName, lastName  );
+        changePage = await logInUserData(firstName, lastName);
 
-          {changePage ? setAccess(1) : setAccess(0)} 
+          {changePage ? setAccess(1) : setAccess(2)} 
       }else{
         setFill(true)
       }
@@ -31,9 +33,10 @@ function LogInPage({setAccess} , {}){
     
     return(
         <>
+         <div className={className}>
 <h1 className="title">Todo List</h1>
 
-        <div className="card">
+        <div className="card" >
         <input
           type="text"
           ref={firstName}
@@ -48,13 +51,14 @@ function LogInPage({setAccess} , {}){
         />
         <div>
         <button onClick={SubmitSignIn}>Log In</button>
-        <button onClick={changePage}>Create Account</button>
+        <button onClick={changePageToCreate}>Create Account</button>
         </div>
         
 
       
       </div>
 {fill ? <h1 className="para-error"> Fill The Blanks</h1> : "" }
+</div>
 </>
 
     )

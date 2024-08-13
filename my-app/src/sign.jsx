@@ -4,7 +4,7 @@ import { getUserData , createUserData } from "./apiUser.js";
 import { createdUserData } from "./createUser.js";
 
 
-function SignInPage({setAccess}){
+function SignInPage({setAccess , className}){
    const [fill , setFill] = useState(false)
 
 
@@ -20,8 +20,10 @@ function SignInPage({setAccess}){
         let first = firstName.current.value;
         let last = lastName.current.value;
       if (first && last) {
-    await createdUserData(firstName , lastName)
-            setAccess(true) 
+   let checkCreatedUser =  await createdUserData(firstName , lastName)
+
+   {checkCreatedUser ? setAccess(1) : setAccess(5)} 
+            // setAccess(true) 
       }else{
         setFill(true)
       }
@@ -32,6 +34,7 @@ function SignInPage({setAccess}){
     
     return(
         <>
+        <div className={className}>
 <h1 className="title">Todo List</h1>
 
         <div className="card">
@@ -51,6 +54,7 @@ function SignInPage({setAccess}){
         <button className="logIn" onClick={changePage}>Log In</button>
       </div>
 {fill ? <h1 className="para-error"> Fill The Blanks</h1> : "" }
+</div>
 </>
 
     )
