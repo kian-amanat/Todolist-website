@@ -1,5 +1,3 @@
-import { getfetchData } from "./api.js";
-
 export async function handleChange(
   inputVal,
   descriptionVal,
@@ -30,9 +28,11 @@ export async function handleChange(
     console.log(data);
 
     try {
-      const response = await fetch("http://localhost:3001/post/task/add", {
+      const jwtToken = localStorage.getItem("jwt");
+      const response = await fetch("http://localhost:3001/task/add", {
         method: "POST",
         headers: {
+          Authorization: `Bearer ${jwtToken}`,
           "Content-Type": "application/json",
         },
         body: customString,
@@ -43,7 +43,7 @@ export async function handleChange(
       }
 
       const responseData = await response.json();
-      console.log(responseData);
+      console.log("id =>>>>>", responseData);
 
       inputVal.current.value = "";
       descriptionVal.current.value = "";
@@ -55,30 +55,43 @@ export async function handleChange(
   }
 }
 
-export const updatefetchData = async (inputVal, descriptionVal, isComplete) => {
-  let newInput = inputVal.current.value;
-  let newDescription = descriptionVal.current.value;
+export const updatefetchData = async (
+  id,
+  inputVal,
+  descriptionVal,
+  isComplete
+) => {
+  console.log("comp =>>>>", isComplete.current);
+  let newInput = inputVal; // Replace with the appropriate method to select the div
+  let newDescription = descriptionVal;
 
-  const titleString = [newInput].join(", ");
+  if (!newInput) {
+    console.error("Title cannot be empty");
+    return;
+  }
+
+  const titleString = [newInput].join(" ");
   const descriptionString = [newDescription].join(", ");
-  const isCompleteString = String(isComplete);
+  const isCompleteString = [isComplete.current].join(", ");
 
-  const customString = `{"title": "${titleString}", "description": "${descriptionString}", "isComplete": "${isCompleteString}"}`;
+  const customString = `{"title": "${titleString}", "description":"${descriptionString}", "isCompleted":${isCompleteString}}`;
+  console.log("json ==>>>", customString);
 
   const data = {
     title: [newInput],
     description: [newDescription],
-    isComplete: isComplete,
+    isComplete: isComplete.current,
   };
 
-  console.log(data);
-  // let getData = await getfetchData(61, true);
-  // console.log(getData.rows);
+  console.log("data ===>>>", data);
+
   try {
-    const response = await fetch("http://localhost:3001/post/task/add", {
-      method: "POST",
+    const jwtToken = localStorage.getItem("jwt");
+    const response = await fetch(`http://localhost:3001/task/update/${id}`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${jwtToken}`,
       },
       body: customString,
     });
@@ -88,7 +101,6 @@ export const updatefetchData = async (inputVal, descriptionVal, isComplete) => {
     }
 
     const responseData = await response.json();
-    console.log(responseData);
   } catch (error) {
     console.error("Error:", error);
   }
