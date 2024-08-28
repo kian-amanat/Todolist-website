@@ -1,33 +1,47 @@
-import axios from "axios";
-const API_URL = "http://localhost:3001/";
-
-const getfetchData = async (id) => {
+const deleteTask = async (id) => {
   try {
-    const res = await axios.get(`${API_URL}get/task/${id}`);
-    console.log(res.data);
-    return res.data;
+    const jwtToken = localStorage.getItem("jwt");
+
+    const response = await fetch(`http://localhost:3001/task/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    } else {
+      const data = await response.json();
+      const deletedTaskId = data.remId;
+      return deletedTaskId;
+    }
   } catch (error) {
-    console.log(error);
+    console.error(`Error deleting task => ${error}`);
   }
 };
 
-const createfetchData = async () => {
+async function updateTask(id, title, description, isComplete) {
   try {
-    const res = await axios.post(`${API_URL}post/task/add`);
+    const jwtToken = localStorage.getItem("jwt");
 
-    console.log(res.data);
-    return res.data;
+    const response = await fetch(`http://localhost:3001/task/update/${id}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      console("response was not ok");
+    } else {
+      const data = response.json();
+    }
   } catch (error) {
-    console.log(error);
+    console.log(`error update task => ${error}`);
   }
-};
+}
 
-const removeFetchData = async (id) => {
-  try {
-    const res = await axios.delete(`${API_URL}delet/task/${id}`);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export { getfetchData, createfetchData, removeFetchData };
+export { deleteTask, updateTask };
