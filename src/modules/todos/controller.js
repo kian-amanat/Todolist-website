@@ -5,13 +5,19 @@ import {
   removeTaskById,
 } from "../../model/todos/index.js";
 
+import { getTaskByUserIdService } from "../../services/todos/service.js";
+
+
+
+
 const getTaskController = async (req, res) => {
   try {
-    const taskId = req.params.id;
+    console.log("req.user.id =>>>", req.user.id);
+    const taskId = req.user.id;
     if (!taskId) {
       console.log("you doesnt add your id");
     } else {
-      const getTask = await getTaskById(taskId);
+      const getTask = await getTaskByUserIdService(taskId);
       res.json(getTask);
     }
   } catch (error) {
@@ -21,7 +27,9 @@ const getTaskController = async (req, res) => {
 
 const createTaskController = async (req, res) => {
   try {
-    const { title, description, isCompleted = false, ownerId = 37 } = req.body;
+    console.log("req.user.id for create =>>>", req.user.id);
+    let ownerId = req.user.id;
+    const { title, description, isCompleted = false } = req.body;
     await createTask(title, description, isCompleted, ownerId);
     res.json({
       message: " your task is added to the database",
@@ -38,7 +46,7 @@ const updateTaskController = async (req, res) => {
   try {
     const upId = req.params.id;
     const {
-      title,
+      title = "Default Title",
       description = "Default description",
       isCompleted,
     } = req.body;
@@ -52,6 +60,7 @@ const updateTaskController = async (req, res) => {
         isCompleted
       );
       res.json({
+        isCompleted: isCompleted,
         message: "your task is updated",
       });
     }
@@ -66,12 +75,14 @@ const updateTaskController = async (req, res) => {
 const removeTaskController = async (req, res) => {
   try {
     const remId = req.params.id;
+    console.log("this is the remove task id", remId);
     if (!remId) {
       console.log("you doesnt add your id");
     } else {
       await removeTaskById(remId);
       res.json({
         message: `your task with id : ${remId} is deleted`,
+        remId: remId,
       });
     }
   } catch (error) {

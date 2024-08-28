@@ -1,5 +1,11 @@
 import { query } from "../../core/database/database-handler.js";
 
+async function getTasks(ownerId) {
+  const sql = `select * from tasks where owner_id = $1 `;
+  const result = await query(sql, [ownerId]);
+  return result.rows;
+}
+
 async function getTaskById(id) {
   const sql = ` select * from tasks
   where owner_id = $1  `;
@@ -37,4 +43,4 @@ async function removeTaskById(id) {
   return result;
 }
 
-export { getTaskById, createTask, updateTaskById, removeTaskById };
+export { getTaskById, createTask, updateTaskById, removeTaskById, getTasks };

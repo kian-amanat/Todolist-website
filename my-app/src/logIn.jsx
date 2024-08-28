@@ -34,24 +34,32 @@ setAccess(4)
     return(
         <>
          <div className={className}>
-<h1 className="title">Todo List</h1>
+<h1 className="title">Log in</h1>
 
         <div className="card" >
-        <input
-          type="text"
-          ref={firstName}
-          placeholder="name"
-          className="nameInput"
-        />
-        <input
-          type="text"
-          ref={lastName}
-          placeholder="last name"
-          className="lastNameInput"
-        />
+        <label>
+   Username
+   </label>
+    <input
+      type="text"
+      ref={firstName}
+      placeholder="Enter your username"
+      className="nameInput"
+    />
+
+  <label>
+    Password
+    </label>
+    <input
+      type="text"
+      ref={lastName}
+      placeholder="Enter your password"
+      className="passwordInput"
+    />
+
         <div>
         <button onClick={SubmitSignIn}>Log In</button>
-        <button onClick={changePageToCreate}>Create Account</button>
+        <button className="second-btn" onClick={changePageToCreate}>Create Account</button>
         </div>
         
 

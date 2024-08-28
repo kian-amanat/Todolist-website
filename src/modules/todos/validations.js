@@ -4,7 +4,6 @@ const validationMiddleWare = (req, res, next) => {
   const schema = Joi.object({
     id: Joi.number().required(),
   });
-
   const { error } = schema.validate(req.body);
 
   if (error) {
@@ -14,4 +13,4 @@ const validationMiddleWare = (req, res, next) => {
   next();
 };
 
-export { validationMiddleWare }
+export { validationMiddleWare };

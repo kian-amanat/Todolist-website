@@ -7,13 +7,11 @@ import {
 import { validationMiddleWare } from "./modules/todos/validations.js";
 import express from "express";
 import { router as taskRouter } from "./modules/todos/routes.js";
-import { router as taskRouter2 } from "./modules/todos/routes.js";
-import { router as taskRouter3 } from "./modules/todos/routes.js";
-import { router as taskRouter4 } from "./modules/todos/routes.js";
-import { router as userRouter } from "./modules/user/routes.js";
-import { router as userRouter2 } from "./modules/user/routes.js";
-import { router as userRouter3 } from "./modules/user/routes.js";
-import { router as userRouter4 } from "./modules/user/routes.js";
+import {
+  router as userRouter,
+  publicRouter as userPublicRouter,
+} from "./modules/user/routes.js";
+import { authMiddleware } from "./core/middleware/jwt_auth.js";
 import cors from "cors";
 import { query } from "./core/database/database-handler.js";
 
@@ -28,23 +26,23 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
+app.use(
+  cors({
+    origin: "http://localhost:3000", // Your frontend URL
+    allowedHeaders: ["Authorization", "Content-Type"], // Allow the Authorization header
+  })
+);
+// app.use("/protected-route", authMiddleware);
 // app.use(validationMiddleWare);
 
 // app.use(getMethodPathIp);
 
-// app.use(cors());
-
 // app.use(authorization);
 
-app.use("/get", taskRouter);
-app.use("/post", taskRouter2);
-app.use("/delet", taskRouter3);
-app.use("/update", taskRouter4);
+app.use(authMiddleware, taskRouter);
+app.use(authMiddleware, userRouter);
+app.use(userPublicRouter);
 
-app.use("/get", userRouter);
-app.use("/update", userRouter2);
-app.use("/create", userRouter3);
-app.use("/api", userRouter4);
 // app.use(sendError); //send404errornot found
 
 app.listen(port, () => {

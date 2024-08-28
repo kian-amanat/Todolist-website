@@ -16,6 +16,7 @@ async function createUserService(userName, password) {
 async function loginUserService(username, password) {
   const user = await getUserByUserName(username);
   console.log("services =>>>>", user);
+
   if (user.length === 0) {
     console.log(false);
     return null;

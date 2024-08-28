@@ -76,14 +76,14 @@ const loginUserController = async (req, res, next) => {
   try {
     const userData = req.body;
     console.log(" c =>>>>", userData);
-    // let username = await getUserByUserName(userName);
+
     if (!userData || !userData.userName || !userData.password) {
       return res.status(401).json({
         message: "You must provide both username and password",
       });
     }
     const jwt = await loginUserService(userData.userName, userData.password);
-
+    // console.log("my token ===>>", jwt);
     if (!jwt) {
       return res.status(401).json({
         message: "Incorrect username or password",
@@ -94,6 +94,7 @@ const loginUserController = async (req, res, next) => {
       jwt: jwt,
       message: "your login is succefully completed",
     });
+    return jwt;
   } catch (error) {
     res.json({
       message: ` Controller ==> your cannot enter => ${error}`,

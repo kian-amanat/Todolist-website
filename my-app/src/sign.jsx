@@ -21,9 +21,8 @@ function SignInPage({setAccess , className}){
         let last = lastName.current.value;
       if (first && last) {
    let checkCreatedUser =  await createdUserData(firstName , lastName)
-
-   {checkCreatedUser ? setAccess(1) : setAccess(5)} 
-            // setAccess(true) 
+   {checkCreatedUser ? setAccess(2) : setAccess(5)} 
+  
       }else{
         setFill(true)
       }
@@ -35,23 +34,33 @@ function SignInPage({setAccess , className}){
     return(
         <>
         <div className={className}>
-<h1 className="title">Todo List</h1>
+        <h1 className="title">Create Account</h1>
 
         <div className="card">
-        <input
-          type="text"
-          ref={firstName}
-          placeholder="name"
-          className="nameInput"
-        />
-        <input
-          type="text"
-          ref={lastName}
-          placeholder="last name"
-          className="lastNameInput"
-        />
-        <button onClick={SubmitSignIn}>Submit</button>
-        <button className="logIn" onClick={changePage}>Log In</button>
+        <label>
+   Username
+   </label>
+    <input
+      type="text"
+      ref={firstName}
+      placeholder="Enter your username"
+      className="nameInput"
+    />
+
+  <label>
+    Password
+    </label>
+    <input
+      type="text"
+      ref={lastName}
+      placeholder="Enter your password"
+      className="passwordInput"
+    />
+    <div>
+    <button className="submit-btn" onClick={SubmitSignIn}>Submit</button>
+    <button className="logIn-btn" onClick={changePage}>Log In</button>
+    </div>
+        
       </div>
 {fill ? <h1 className="para-error"> Fill The Blanks</h1> : "" }
 </div>

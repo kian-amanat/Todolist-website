@@ -6,15 +6,15 @@ import {
   getUserbyUserNameController,
 } from "./controller.js";
 
-import { createUserService } from "../../services/user/service.js";
-
 import express from "express";
-const router = express.Router();
 
+const router = express.Router();
+const publicRouter = express.Router();
+
+publicRouter.post("/signIn", loginUserController);
+publicRouter.post("/user", createUserController);
 router.get("/get/userName", getUserbyUserNameController);
 router.get("/user/:id", getUsersController);
-router.post("/user", createUserController);
-router.post("/signIn", loginUserController);
 router.put("/user/:id", updateUserController);
 
-export { router };
+export { router, publicRouter };

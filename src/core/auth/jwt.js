@@ -5,9 +5,10 @@ function jwtSign(data) {
   return jwt.sign(data, JWT_SECRET.signKey);
 }
 
-function validateJwt(jwt) {
+function validateJwt(token) {
   try {
-    return jwt.verify(jwt, JWT_SECRET.signKey);
+    // console.log(" jwt token", token);
+    return jwt.verify(token, JWT_SECRET.signKey);
   } catch (error) {
     console.log(error);
     return null;
