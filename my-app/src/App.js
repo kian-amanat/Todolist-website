@@ -6,18 +6,11 @@ import { LogInPage } from "./logIn.jsx";
 
 function App() {
   let [access, setAccess] = useState(0);
-  let [logIn, setLogIn] = useState(false);
+
   return (
     <div className="App">
-      {/* {access === 0 ? (
-        <LogInPage setAccess={setAccess} />
-      ) : access === 1 ? (
-        <SignInPage setAccess={setAccess} />
-      ) : access === 2 ? (
-        <InputField /> // Replace with your actual input component
-      ) : null} */}
       {access === 1 ? (
-        <InputField />
+        <InputField setAccess={setAccess} />
       ) : access === 2 ? (
         <LogInPage setAccess={setAccess} className="error" />
       ) : access === 4 ? (
