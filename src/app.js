@@ -19,7 +19,7 @@ const app = express();
 const port = 3001;
 
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.header("Access-Control-Allow-Origin", "http://localhost:3002");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
   next();
@@ -28,22 +28,14 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:3000", // Your frontend URL
+    origin: "http://localhost:3002", // Your frontend URL
     allowedHeaders: ["Authorization", "Content-Type"], // Allow the Authorization header
   })
 );
-// app.use("/protected-route", authMiddleware);
-// app.use(validationMiddleWare);
-
-// app.use(getMethodPathIp);
-
-// app.use(authorization);
 
 app.use(authMiddleware, taskRouter);
 app.use(authMiddleware, userRouter);
 app.use(userPublicRouter);
-
-// app.use(sendError); //send404errornot found
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

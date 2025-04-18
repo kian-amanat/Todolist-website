@@ -7,9 +7,6 @@ import {
 
 import { getTaskByUserIdService } from "../../services/todos/service.js";
 
-
-
-
 const getTaskController = async (req, res) => {
   try {
     console.log("req.user.id =>>>", req.user.id);

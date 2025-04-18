@@ -1,7 +1,15 @@
+body{
+    background-image: url('background.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+
 .title{
+    color: #ffffff;
     font-size: 45px;
     font-weight: 300;
-    margin-left: -70px;
+    text-align: center;
 }
 
   .error input {
@@ -9,58 +17,57 @@
     background-color: #ffffff; 
   }
 
-.second-btn{
-    margin-right: -30px;
-    background-color: rgb(2, 115, 196);
-    margin-left: 150px;
-}
-
-.submit-btn{
-    margin-left: -15px;
-    background-color: rgb(38, 165, 6);
-}
 .second-btn:hover,  .logIn-btn:hover{
     background-color: #007bff;
 }
 
+.second-btn {
+    background-color: rgb(7, 139, 234);
+}
 
-.logIn-btn{
+.submit-btn {
+    background-color: #6f42c1;
+}
+
+.logIn-btn {
     background-color: rgb(2, 115, 196);
-    margin-left: 210px;
-    margin-right: -10px;
 }
+
 .card {
-    width: 360px; 
-    height: 300px;
+    width: 500px; 
     padding: 20px;
-    border-radius: 10px;
-    background-color: #ffffff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    margin-left: -3000px;
-    margin: 50px auto; 
-    margin-left: 420px;
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.15); /* translucent white */
+    backdrop-filter: blur(15px); /* blur effect */
+    -webkit-backdrop-filter: blur(15px); /* for Safari */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25); /* more soft depth */
+    margin: 50px ; 
+    margin-left: 360px;
+    height: 500px;
 }
 
-label{
-    font-weight: 600;
+label {
+    font-weight: 300;
     font-size: 14px;
-    padding-top: 21px;
-    margin-left: 0px;
+    display: block;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    margin-left: 15px;
+    text-align: left;
 }
-
 
 .nameInput,
 .passwordInput {
-    width: 100%; 
+    width: 90%; 
     padding: 10px;
-    margin: 10px 0; 
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
     transition: border-color 0.3s;
+}
+
+.passwordInput{
+    margin-bottom: 50px;
 }
 
 .nameInput:focus,
@@ -70,12 +77,14 @@ label{
 }
 
 button {
-    margin-left: -30px;
-    margin-top: 30px;
+    display: block; /* each button on its own line */
+    width: 95%;      /* adjust width if needed */
+    margin: 20px auto 0 auto; /* center horizontally with spacing */
     padding: 10px 15px;
-    background-color: #01b419; /* Bootstrap primary color */
+    background-color: #6f42c1;
     color: white;
     border: none;
+    height: 50px;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
@@ -83,8 +92,9 @@ button {
 }
 
 button:hover {
-    background-color: #04c911; /* Darker shade on hover */
+    background-color: #6737c0;
 }
+
 
 .para-error{
     color : rgb(215, 9, 9);
