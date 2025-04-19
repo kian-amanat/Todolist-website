@@ -1,52 +1,43 @@
-body{
+body {
     background-image: url('background.jpg');
     background-size: cover;
     background-position: center;
     height: 100vh;
-}
-
-.title{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .title {
     color: #ffffff;
     font-size: 45px;
     font-weight: 300;
     text-align: center;
-}
-
-  .error input {
-    border: 2px solid red; 
-    background-color: #ffffff; 
+    margin-bottom: 20px;
   }
-
-.second-btn:hover,  .logIn-btn:hover{
-    background-color: #007bff;
-}
-
-.second-btn {
-    background-color: rgb(7, 139, 234);
-}
-
-.submit-btn {
-    background-color: #6f42c1;
-}
-
-.logIn-btn {
-    background-color: rgb(2, 115, 196);
-}
-
-.card {
-    width: 500px; 
+  
+  .error input {
+    border: 2px solid red;
+    background-color: #ffffff;
+  }
+  
+  .card {
+    max-width: 90%;
+    width: 500px;
     padding: 20px;
     border-radius: 20px;
-    background-color: rgba(255, 255, 255, 0.15); /* translucent white */
-    backdrop-filter: blur(15px); /* blur effect */
-    -webkit-backdrop-filter: blur(15px); /* for Safari */
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25); /* more soft depth */
-    margin: 50px ; 
-    margin-left: 360px;
-    height: 500px;
-}
-
-label {
+    background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    margin: auto;
+    height: auto;
+  }
+  
+  label {
     font-weight: 300;
     font-size: 14px;
     display: block;
@@ -54,32 +45,34 @@ label {
     margin-bottom: 15px;
     margin-left: 15px;
     text-align: left;
-}
-
-.nameInput,
-.passwordInput {
-    width: 90%; 
+  }
+  
+  .nameInput,
+  .passwordInput {
+    width: 90%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
     transition: border-color 0.3s;
-}
-
-.passwordInput{
-    margin-bottom: 50px;
-}
-
-.nameInput:focus,
-.passwordInput:focus {
-    border-color: #007bff; /* Change border color on focus */
-    outline: none; /* Remove default outline */
-}
-
-button {
-    display: block; /* each button on its own line */
-    width: 95%;      /* adjust width if needed */
-    margin: 20px auto 0 auto; /* center horizontally with spacing */
+    margin: 0 auto;
+    display: block;
+  }
+  
+  .passwordInput {
+    margin-bottom: 30px;
+  }
+  
+  .nameInput:focus,
+  .passwordInput:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  button {
+    display: block;
+    width: 95%;
+    margin: 20px auto 0 auto;
     padding: 10px 15px;
     background-color: #6f42c1;
     color: white;
@@ -89,14 +82,77 @@ button {
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: #6737c0;
-}
-
-
-.para-error{
-    color : rgb(215, 9, 9);
+  }
+  
+  button:hover,
+  .second-btn:hover,
+  .logIn-btn:hover {
+    background-color: #007bff;
+  }
+  
+  .submit-btn {
+    background-color: #6f42c1;
+  }
+  
+  .second-btn {
+    background-color: rgb(7, 139, 234);
+  }
+  
+  .logIn-btn {
+    background-color: rgb(2, 115, 196);
+  }
+  
+  .para-error {
+    color: rgb(215, 9, 9);
     font-weight: 300;
-}
+    text-align: center;
+  }
+  
+  /* Responsive adjustments */
+  @media screen and (max-width: 768px) {
+    .title {
+      font-size: 32px;
+    }
+  
+    .card {
+      padding: 15px;
+      width: 95%;
+      margin: 20px;
+    }
+  
+    button {
+      font-size: 15px;
+      height: 45px;
+    }
+  
+    .nameInput,
+    .passwordInput {
+      font-size: 15px;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .title {
+      font-size: 28px;
+    }
+  
+    .card {
+      padding: 10px;
+    }
+  
+    label {
+      font-size: 13px;
+      margin-left: 10px;
+    }
+  
+    button {
+      font-size: 14px;
+      height: 42px;
+    }
+  
+    .nameInput,
+    .passwordInput {
+      font-size: 14px;
+    }
+  }
+  
